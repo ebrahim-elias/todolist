@@ -13,8 +13,6 @@ public class TodoList {
 
     public TodoList() {
         list = new ArrayList<>();
-
-
     }
 
     public void add(Task task) {
@@ -22,18 +20,9 @@ public class TodoList {
         //sortStatus();
     }
 
-    public boolean add(String title, String project, String dateString) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate localDate = LocalDate.parse(dateString, formatter);
-            Task task = new Task(title, project, localDate);
+    public void add(String title, String project, LocalDate newDate) {
+            Task task = new Task(title, project, newDate);
             list.add(task);
-            //sortStatus();
-            // LocalDate today = LocalDate.now();
-            return true;
-        } catch (DateTimeParseException e) {
-            return false;
-        }
     }
 
     public void sortListByProject() {

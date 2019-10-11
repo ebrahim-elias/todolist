@@ -19,10 +19,10 @@ public class Task {
     private String toProject;
     private boolean done;
     private LocalDate dueDate; //TODO LocalDate
-    private Scanner in;
+    //private Scanner in;
 
     public Task() {
-        in = new Scanner(System.in);
+        //in = new Scanner(System.in);
     }
 
     public Task(String title, String toProject, LocalDate dueDate) {

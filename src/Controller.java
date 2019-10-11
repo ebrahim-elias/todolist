@@ -12,6 +12,9 @@
  */
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
@@ -66,17 +69,15 @@ public class Controller {
                     System.out.println("Enter project related: ");
                     String newProject = checkInput(scanner);
                     System.out.println("enter date dd-MM-yyyy:");
-                    String date = scanner.nextLine();
-                    boolean success = listClass.add(newTitle, newProject, date);
-                    if (success) {
+                    LocalDate newDate = checkDate(scanner);
+                        listClass.add(newTitle, newProject, newDate);
                         listClass.PrintToDoList();
-                    }
+
                     welcomeMessage();
                     break;
                 case "3":
                     System.out.println(">> (1) Update task\n" +
-                            ">> (2) Change to IsDone\n" +
-                            ">> (3) Remove task\n" +
+                            ">> (2) Remove task\n" +
                             ">> ");
                     String EditOption = scanner.nextLine();
                     editExtension(EditOption);
@@ -108,23 +109,26 @@ public class Controller {
         listClass.PrintToDoList();
         switch (value) {
             case "1":
-                System.out.println("Enter the number of the task");
-                Task chosenTask = listClass.updateTask(scanner.nextLine());
-                if (chosenTask != null) {
-                    updateChosenTask(chosenTask);
-                    welcomeMessage();
-                } else System.out.println("The number dose't exist!!..");
+                bringTask(scanner);
                 break;
             case "2":
-
-
-                break;
-            case "3":
+                /*System.out.println("Enter the number of the task");
+                Task chosenTask1 = listClass.updateTask(scanner.nextLine());
                 //listClass.removeTask();
-                welcomeMessage();
+                welcomeMessage();*/
+                bringTask(scanner);
+                //listClass.removeTask() TODO
                 break;
         }
 
+    }
+    public void bringTask(Scanner sc){
+        System.out.println("Enter the number of the task");
+        Task chosenTask = listClass.updateTask(sc.nextLine());
+        if (chosenTask != null) {
+            updateChosenTask(chosenTask);
+            welcomeMessage();
+        } else System.out.println("The number dose't exist!!..");
     }
 
     public String checkInput(Scanner sc) {
@@ -150,20 +154,45 @@ public class Controller {
         String chosenNum = scanner.nextLine();
         switch (chosenNum) {
             case "1":
-                task.setTitle(scanner.nextLine());
+                System.out.println("Enter ToDo List Title: ");
+                String newTitle = checkInput(scanner);
+                task.setTitle(newTitle);
                 break;
             case "2":
-                task.setProject(scanner.nextLine());
+                System.out.println("Enter project related: ");
+                String newProject = checkInput(scanner);
+                task.setProject(newProject);
                 break;
             case "3":
-                //localDate localDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");TODO
-                //LocalDate localDate = LocalDate.parse(dateString, formatter);
-                //task.setDueDate(date);
+                System.out.println("enter date dd-MM-yyyy:");
+                LocalDate newDate = checkDate(scanner);
+                task.setDueDate(newDate);
                 break;
             case "4":
                 task.setDone(true);
         }
         return;
+    }
+    public LocalDate checkDate(Scanner sc)
+    {
+        LocalDate localDate;
+        do {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                localDate = LocalDate.parse(sc.nextLine(), formatter);
+                LocalDate today = LocalDate.now();
+                if (localDate.compareTo(today) >= 0) continue;
+                else{
+                    localDate = null;
+                    System.out.println("The date is old pleas try again: ");
+                }
+            }
+            catch (DateTimeParseException e) {
+                localDate = null;
+                System.out.println("Invalid Value (dd-MM-yyyy) Please Try again: ");
+            }
+        }while (localDate == null);
+        return localDate;
     }
 }
 
