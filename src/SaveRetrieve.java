@@ -13,20 +13,23 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class SaveRetrieve {
-  private static final String FNAME = "/Users/ebrahimelias/Documents/intellej/ToDoList.txt";
+  private static final String FNAME = "/Users/ebrahimelias/Desktop/github/todolist.txt";
   private List<Task> list;
   
-  public void fillFile(){
+  public void saveToFile(list){
       Charset charset = StandardCharsets.US_ASCII;
       Path path = Paths.get(FNAME);
       try (BufferedReader reader = Files.newBufferedReader(path, charset)){
           for(Task item : list) {
 
-              String response = reader.readLine();
+              String response = reader.;
           }
       } catch (IOException e) {
           e.printStackTrace();
       }
+  }
+  public List<Task> retrieveFromFile(String fileName){
+
   }
   
 }
