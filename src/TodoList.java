@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,6 @@ public class TodoList {
 
     public void add(Task task) {
         list.add(task);
-        //sortStatus();
     }
 
     public void add(String title, String project, LocalDate newDate) {
@@ -75,6 +75,17 @@ public class TodoList {
 
     public long countUndoneTask() {
         return list.stream().filter(x -> !x.isDone()).count();
+    }
+
+    public void removeTask(Task task){
+        Iterator itr = list.iterator();
+        while (itr.hasNext())
+        {
+            Task t = (Task) itr.next();
+            if (t.equals(task)){
+                itr.remove();
+            }
+        }
     }
 
 }

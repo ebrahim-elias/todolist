@@ -22,18 +22,17 @@ public class Controller {
     private TodoList listClass;
     private Scanner scanner;
 
+    public Controller() {
+        listClass = new TodoList();
+        scanner = new Scanner(System.in);
+    }
+
     public static void main(String[] args) {
         Controller c = new Controller();
         c.welcomeMessage();
         c.optionMain();
 
     }
-
-    public Controller() {
-        listClass = new TodoList();
-        scanner = new Scanner(System.in);
-    }
-
 
     public void welcomeMessage() {
 
@@ -109,20 +108,14 @@ public class Controller {
         listClass.PrintToDoList();
         switch (value) {
             case "1":
-                bringTask(scanner);
+                bringTaskToEdit(scanner);
                 break;
             case "2":
-                /*System.out.println("Enter the number of the task");
-                Task chosenTask1 = listClass.updateTask(scanner.nextLine());
-                //listClass.removeTask();
-                welcomeMessage();*/
-                bringTask(scanner);
-                //listClass.removeTask() TODO
+                bringTaskToRemove(scanner);
                 break;
         }
-
     }
-    public void bringTask(Scanner sc){
+    public void bringTaskToEdit(Scanner sc){
         System.out.println("Enter the number of the task");
         Task chosenTask = listClass.updateTask(sc.nextLine());
         if (chosenTask != null) {
@@ -130,6 +123,15 @@ public class Controller {
             welcomeMessage();
         } else System.out.println("The number dose't exist!!..");
     }
+    public void bringTaskToRemove(Scanner sc){
+        System.out.println("Enter the number of the task");
+        Task chosenTask = listClass.updateTask(sc.nextLine());
+        if (chosenTask != null) {
+            listClass.removeTask(chosenTask);
+            welcomeMessage();
+        } else System.out.println("The number dose't exist!!..");
+    }
+
 
     public String checkInput(Scanner sc) {
         String word;
