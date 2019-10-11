@@ -16,6 +16,8 @@ public class TodoList {
         list = new ArrayList<>();
     }
 
+
+
     public void add(Task task) {
         list.add(task);
     }
@@ -23,6 +25,7 @@ public class TodoList {
     public void add(String title, String project, LocalDate newDate) {
             Task task = new Task(title, project, newDate);
             list.add(task);
+
     }
 
     public void sortListByProject() {

@@ -12,6 +12,7 @@
  */
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -21,16 +22,20 @@ import java.util.Scanner;
 public class Controller {
     private TodoList listClass;
     private Scanner scanner;
+    private SaveRetrieve file;
 
     public Controller() {
         listClass = new TodoList();
         scanner = new Scanner(System.in);
+        file = new SaveRetrieve();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Controller c = new Controller();
+        SaveRetrieve sr = new SaveRetrieve();
         c.welcomeMessage();
         c.optionMain();
+        //sr.saveToFile();
 
     }
 
@@ -49,7 +54,7 @@ public class Controller {
     }
 
 
-    public void optionMain() {
+    public void optionMain() throws IOException {
         boolean finished = false;
         while (!finished) {
             String optionAsString = scanner.nextLine();
@@ -81,7 +86,8 @@ public class Controller {
                     String EditOption = scanner.nextLine();
                     editExtension(EditOption);
                     break;
-                case "4": //SaveRetrieve();
+                case "4":
+                    file.saveToFile(listClass.getList());
                     finished = true;
                     break;
                 default:
