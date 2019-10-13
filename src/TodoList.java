@@ -15,9 +15,6 @@ public class TodoList {
     public TodoList() {
         list = new ArrayList<>();
     }
-
-
-
     public void add(Task task) {
         list.add(task);
     }
@@ -25,19 +22,20 @@ public class TodoList {
     public void add(String title, String project, LocalDate newDate) {
             Task task = new Task(title, project, newDate);
             list.add(task);
-
     }
-
     public void sortListByProject() {
         list.stream()
                 .sorted(Comparator.comparing(Task::getToProject))
-                .map(task ->
-                        task.getTitle() + " " + task.getToProject() + " " + task.getDueDate() + " " + task.isDone())
+                .map(Task::getDetails)
                 .forEach(System.out::println);
     }
 
     public List<Task> getList() {
         return list;
+    }
+
+    public void setList(List<Task> list) {
+        this.list = list;
     }
 
     public void filterListByTitleOrProject(String item) {
@@ -50,7 +48,7 @@ public class TodoList {
 
     public void sortListByDate() {
         list.stream().sorted(Comparator.comparing(Task::getDueDate))
-                .map(task -> task.getTitle() + " " + task.getToProject() + " " + task.getDueDate() + " " + task.isDone())
+                .map(Task::getDetails)
                 .forEach(System.out::println);
     }
 

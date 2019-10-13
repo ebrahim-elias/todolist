@@ -33,9 +33,9 @@ public class Controller {
     public static void main(String[] args) throws IOException {
         Controller c = new Controller();
         SaveRetrieve sr = new SaveRetrieve();
+        c.listClass = sr.retrieveFromFile();
         c.welcomeMessage();
         c.optionMain();
-        //sr.saveToFile();
 
     }
 

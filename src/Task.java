@@ -24,6 +24,12 @@ public class Task {
     public Task() {
 
     }
+    public Task(String title, String toProject, LocalDate dueDate, boolean status) {
+        this.title = title;
+        this.toProject = toProject;
+        this.dueDate = dueDate;
+        this.done = status;
+    }
 
     public Task(String title, String toProject, LocalDate dueDate) {
         this.title = title;
@@ -74,6 +80,9 @@ public class Task {
     public String getDetails() {
 
         return "Title: " + title + ", Project: " + toProject + ", Due Date: " + dueDate + ", Status: " + getIsDone();
+    }
+    public String getFileDetails(){
+        return title+","+toProject+","+dueDate+","+done;
     }
 
 }
