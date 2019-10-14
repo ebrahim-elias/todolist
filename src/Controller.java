@@ -35,6 +35,7 @@ public class Controller {
 
     /**
      * The Main method
+     *
      * @param args
      * @throws IOException throw I/OException for it handel a file save and retrieve.
      */
@@ -68,6 +69,7 @@ public class Controller {
 
     /**
      * make the first choice that kan be taken from the option and handel it separately because of the switch in it.
+     *
      * @throws IOException it throws exception because the save to file is written here before exiting the app.
      */
 
@@ -83,21 +85,23 @@ public class Controller {
                             ">> ");
                     String dateOrProject = scanner.nextLine();
                     // call another switch for showing the list
-                    sortExtension(dateOrProject);
+                    sortSelection(dateOrProject);
                     break;
                 case "2":
+                    // input the title, project, date, from the user interface
                     System.out.println("Enter ToDo List Title: ");
-                    String newTitle = checkInput(scanner);
+                    String newTitle = readInput(scanner);
                     System.out.println("Enter project related: ");
-                    String newProject = checkInput(scanner);
+                    String newProject = readInput(scanner);
                     System.out.println("enter date dd-MM-yyyy:");
-                    LocalDate newDate = checkDate(scanner);
+                    LocalDate newDate = readDate(scanner);
                     // Creating new task in the list after validate and convert the input from the command line
                     listClass.add(newTitle, newProject, newDate);
-                    listClass.PrintToDoList();
+                    listClass.printToDoList();
                     break;
                 case "3":
-                    if (listClass.getList().isEmpty()){
+                    // checking the list is not empty
+                    if (listClass.getList().isEmpty()) {
                         System.out.println("No task to edit");
                         continue;
                     }
@@ -106,7 +110,7 @@ public class Controller {
                             ">> ");
                     String EditOption = scanner.nextLine();
                     // call another switch for editing the chosen task
-                    editExtension(EditOption);
+                    editSelection(EditOption);
                     break;
                 case "4":
                     // save and change the local var for exiting
@@ -123,72 +127,31 @@ public class Controller {
     /**
      * the switch be called if the first option have been chosen (show the list).
      * it calls the tow sorting methods from the TodoList class.
+     *
      * @param value take the value on the user input for chose the right option
      */
 
-    private void sortExtension(String value) {
+    private void sortSelection(String value) {
         switch (value) {
             case "1":
                 listClass.sortListByProject();
-                welcomeMessage();
                 break;
             case "2":
                 listClass.sortListByDate();
-                welcomeMessage();
                 break;
             default:
                 System.out.println("Invalid input");
-                welcomeMessage();
+                break;
         }
     }
 
     /**
-     * the switch be called if the third option have been chosen (Edit the Task).
-     * @param value take the value on the user input for chose the right option
+     * check the input from the user is not empty (for title and project)
+     *
+     * @param sc scanner object to teak the value from the user
+     * @return the string if not empty
      */
-
-    private void editExtension(String value) {
-        listClass.PrintToDoList();
-        switch (value) {
-            case "1":
-                bringTaskToEdit(scanner);
-                break;
-            case "2":
-                bringTaskToRemove(scanner);
-                break;
-            default:
-                System.out.println("Invalid input");
-                welcomeMessage();
-        }
-    }
-    public Task bringChosenTask(Scanner sc){
-        Task chosenTask;
-        do {
-            System.out.println("Enter the number of the task");
-            chosenTask = listClass.bringTask(sc.nextLine());
-            if (chosenTask != null) {
-                return chosenTask;
-            } else System.out.println("The number dose't exist!!..");
-        }while (chosenTask == null);
-        welcomeMessage();
-        return null;
-    }
-    private void bringTaskToEdit(Scanner sc){
-           Task chosenTask = bringChosenTask(sc);
-           updateChosenTask(chosenTask);
-           welcomeMessage();
-    }
-    private void bringTaskToRemove(Scanner sc){
-        System.out.println("Enter the number of the task");
-        Task chosenTask = listClass.bringTask(sc.nextLine());
-        if (chosenTask != null) {
-            listClass.removeTask(chosenTask);
-            welcomeMessage();
-        } else System.out.println("The number dose't exist!!..");
-    }
-
-
-    private String checkInput(Scanner sc) {
+    private String readInput(Scanner sc) {
         String word;
         do {
             word = sc.nextLine();
@@ -197,9 +160,101 @@ public class Controller {
                         ">> Please enter value:\n" +
                         ">>");
             }
-        } while (word.equals(""));
+        } while (word.equals("")); // return to interring the value if the value is empty
         return word;
     }
+
+    /**
+     * validate the date and parse it to localDate format and type with checking is not old
+     *
+     * @param sc scanner object that insert the input date from the user
+     * @return the right format and not old Date (from today)
+     */
+    private LocalDate readDate(Scanner sc) {
+        LocalDate localDate;
+        do {
+            try {
+                // parse the string to localDate format with validating the input and then the old date if its entered
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                localDate = LocalDate.parse(sc.nextLine(), formatter);
+                LocalDate today = LocalDate.now();
+                if (localDate.compareTo(today) >= 0) continue;
+                else {
+                    localDate = null;
+                    System.out.println("The date is old pleas try again: ");
+                }
+            } catch (DateTimeParseException e) {
+                localDate = null;
+                System.out.println("Invalid Value (dd-MM-yyyy) Please Try again: ");
+            }
+        } while (localDate == null); // return to enter new date if its not right
+        return localDate;
+    }
+
+    /**
+     * the switch be called if the third option have been chosen (Edit the Task).
+     *
+     * @param value take the value on the user input for chose the right option
+     */
+    private void editSelection(String value) {
+        listClass.printToDoList();
+        switch (value) {
+            case "1":
+                readTaskToEdit(scanner);
+                break;
+            case "2":
+                readTaskToRemove(scanner);
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
+    }
+
+    /**
+     * it reads the number of the task that the user inter then call the selectTask which bring the chosen task from
+     * the task list.
+     *
+     * @param sc scanner object for tacking the task number from the user
+     * @return chosen task from the list
+     */
+    private Task readChosenTask(Scanner sc) {
+        Task chosenTask;
+        do {
+            System.out.println("Enter the number of the task");
+            chosenTask = listClass.selectTask(sc.nextLine());
+            // validate if the number exist
+            if (chosenTask != null) {
+                return chosenTask;
+            } else System.out.println("The number dose't exist!!..");
+        } while (chosenTask == null); // return to enter task number if the number dose not exist
+        return null;
+    }
+
+    /**
+     * read the existing chosen task and send it to update method
+     *
+     * @param sc for calling the readChosenTask witch teak scanner object as parameter
+     */
+    private void readTaskToEdit(Scanner sc) {
+        Task chosenTask = readChosenTask(sc);
+        updateChosenTask(chosenTask);
+    }
+
+    /**
+     * read the existing chosen task and send it to remove method inside ToDoList class
+     *
+     * @param sc for calling the readChosenTask witch teak scanner object as parameter
+     */
+    private void readTaskToRemove(Scanner sc) {
+        Task chosenTask = readChosenTask(sc);
+        listClass.removeTask(chosenTask);
+    }
+
+    /**
+     * list a new option if the task is updating and chose the part desired to update
+     *
+     * @param task the chosen task to be updated
+     */
 
     private void updateChosenTask(Task task) {
         System.out.println(">> Update (1) Title:\n" +
@@ -207,22 +262,21 @@ public class Controller {
                 ">> Update (3) Date:\n" +
                 ">> (4) mark is done\n" +
                 ">> ");
-
         String chosenNum = scanner.nextLine();
         switch (chosenNum) {
             case "1":
                 System.out.println("Enter ToDo List Title: ");
-                String newTitle = checkInput(scanner);
+                String newTitle = readInput(scanner);
                 task.setTitle(newTitle);
                 break;
             case "2":
                 System.out.println("Enter project related: ");
-                String newProject = checkInput(scanner);
+                String newProject = readInput(scanner);
                 task.setProject(newProject);
                 break;
             case "3":
                 System.out.println("enter date dd-MM-yyyy:");
-                LocalDate newDate = checkDate(scanner);
+                LocalDate newDate = readDate(scanner);
                 task.setDueDate(newDate);
                 break;
             case "4":
@@ -231,28 +285,6 @@ public class Controller {
             default:
                 System.out.println("Invalid input");
         }
-        return;
-    }
-    private LocalDate checkDate(Scanner sc)
-    {
-        LocalDate localDate;
-        do {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                localDate = LocalDate.parse(sc.nextLine(), formatter);
-                LocalDate today = LocalDate.now();
-                if (localDate.compareTo(today) >= 0) continue;
-                else{
-                    localDate = null;
-                    System.out.println("The date is old pleas try again: ");
-                }
-            }
-            catch (DateTimeParseException e) {
-                localDate = null;
-                System.out.println("Invalid Value (dd-MM-yyyy) Please Try again: ");
-            }
-        }while (localDate == null);
-        return localDate;
     }
 }
 

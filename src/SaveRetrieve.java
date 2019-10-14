@@ -12,11 +12,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SaveRetrieve {
-    private static final String FNAME = "./todolist.txt";
+    private static final String FNAME = "./todolist.txt";  //using the dynamic path
     private BufferedWriter writer;
     private Task task;
     private TodoList list;
 
+    /**
+     * The method is to save the actual list to text file
+     * @param list from type list of task
+     * @throws IOException this can throw an exception so the method must handel it properly
+     */
     public void saveToFile(List<Task> list) throws IOException {
        try
     {
@@ -42,6 +47,11 @@ public class SaveRetrieve {
         }
     }
 
+    /**
+     * retrieving the list from the text file
+     * @return list from type ToDoList
+     */
+
    public TodoList retrieveFromFile() {
         list = new TodoList();
         try (FileReader reader = new FileReader(FNAME);
@@ -51,30 +61,46 @@ public class SaveRetrieve {
             while ((line = br.readLine()) != null) {
                 String [] str = line.split(",");
                 List<String> al = Arrays.asList(str);
+                // tacking out the values from the list by index
                 String title = al.get(0);
                 String project = al.get(1);
                 String date = al.get(2);
-                LocalDate l = dateConvert(date);
+                // convert the date from string to localDate
+                LocalDate localDate = dateConvert(date);
                 String status = al.get(3);
-                boolean ss = statusConvert(status);
-                task = new Task(title,project,l,ss);
+                // convert the status from string to boolean
+                boolean statusAsBoolean = statusConvert(status);
+                // make new task with the constructor and add it to the list from type ToDoList
+                task = new Task(title,project,localDate,statusAsBoolean);
                 list.add(task);
             }
             return list;
-
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
         return null;
    }
-    private boolean statusConvert(String s){
-        if (s.contains("false")){
+
+    /**
+     * converting the string to boolean to be matched with the task constructor
+     * @param status as string
+     * @return status as boolean
+     */
+
+    private boolean statusConvert(String status){
+        if (status.contains("false")){
             return false;
         } else { return true;}
     }
-    private LocalDate dateConvert(String lo){
+
+    /**
+     * converting the string to LocalDate to be matched with the task constructor
+     * @param localDate1 as string
+     * @return localdate as type LocalDate
+     */
+    private LocalDate dateConvert(String localDate1){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(lo, formatter);
+        LocalDate localDate = LocalDate.parse(localDate1, formatter);
         return  localDate;
     }
     }
