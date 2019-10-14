@@ -1,6 +1,5 @@
 # todolist
 This is App for todo List
-* Your task is to build a Todo list Application.
 * The application allows a user to create new tasks,
 * assign them a title and due date, and choose a project for that task to belong to.
 * using a text based user interface via the command-line.

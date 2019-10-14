@@ -1,12 +1,17 @@
+/**
+ *  The class TodoList is the class where all the tasks can listed in a ArrayList
+ * of type Task, with tow ways to add and tow ways of sort them for showing the list.
+ * the removing and the bringing specific task is written here as well.
+ *
+ * @author Ebrahim Elias
+ * @version 19.10.03.1
+ */
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TodoList {
     private List<Task> list;
@@ -61,7 +66,7 @@ public class TodoList {
 
     }
 
-    public Task updateTask(String taskNumber) {
+    public Task bringTask(String taskNumber) {
         for (Task task : list) {
             if (list.indexOf(task) == Integer.parseInt(taskNumber) - 1) {
                 return task;

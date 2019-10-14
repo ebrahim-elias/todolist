@@ -1,5 +1,9 @@
-/** these class is for saving and retrieving the task list to and from a file 
+/**
+ * these class is for saving and retrieving the task list to and from a text file
  * in the OS.
+ *
+ *  @author Ebrahim Elias
+ *  @version 19.10.02.1
   */ 
 import java.io.*;
 import java.time.LocalDate;
@@ -8,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SaveRetrieve {
-    private static final String FNAME = "/Users/ebrahimelias/Desktop/github/todolist.txt";
+    private static final String FNAME = "./todolist.txt";
     private BufferedWriter writer;
     private Task task;
     private TodoList list;

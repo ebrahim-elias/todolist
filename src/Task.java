@@ -2,7 +2,8 @@
  * The Task Class is represent the new task how it interact with the system and
  * what it must include (title,project,date,status).
  *
- * @param
+ *  @author Ebrahim Elias
+ *  @version 19.10.02.1
  */
 
 
@@ -22,7 +23,6 @@ public class Task {
 
 
     public Task() {
-
     }
     public Task(String title, String toProject, LocalDate dueDate, boolean status) {
         this.title = title;
