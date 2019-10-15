@@ -1,4 +1,4 @@
-# todolist
+# ToDolist APP
 This is App for todo List
 * The application allows a user to create new tasks,
 * assign them a title and due date, and choose a project for that task to belong to.

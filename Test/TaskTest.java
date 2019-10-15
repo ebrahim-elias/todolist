@@ -1,11 +1,45 @@
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-
 public class TaskTest {
 
+    @Test
+    void getTitle() {
     }
+
+    @Test
+    void setTitle() {
+    }
+
+    @Test
+    void getIsDone() {
+    }
+
+    @Test
+    void isDone() {
+    }
+
+    @Test
+    void setDone() {
+    }
+
+    @Test
+    void getToProject() {
+    }
+
+    @Test
+    void setProject() {
+    }
+
+    @Test
+    void getDueDate() {
+    }
+
+    @Test
+    void setDueDate() {
+    }
+
+    @Test
+    void getDetails() {
+    }
+}
