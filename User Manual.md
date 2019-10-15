@@ -29,7 +29,7 @@ sort their tasks by Date or Project
  >> (2) Show By Date
  >>
 ```
-If options 1 is chosenl, tasks will be sorted by projects
+* If options 1 is chosen, tasks will be sorted by projects
 
 ### Sorted by Projects
 
@@ -39,7 +39,7 @@ Title: buy milk, Project: kitchen, Due Date: 2019-11-11, Status: Waiting
 Title: buy eggs, Project: kitchen, Due Date: 2019-11-09, Status: Waiting
 Title: go to my child school, Project: meeting, Due Date: 2019-11-11, Status: Waiting
 ```
-If options 2 is chosenl, tasks will be sorted by date
+* If options 2 is chosenl, tasks will be sorted by date
 
 ### Sorted by Date
 
@@ -54,7 +54,7 @@ Title: go to the Doctor, Project: appointment, Due Date: 2019-12-12, Status: Don
 ```
 Enter ToDo List Title:
 ```
-Here the user can enter a new title and it works the same for other options as well:
+* Here the user can enter a new title and it works the same for other options as well:
 ```
 Enter project related:
 enter date dd-MM-yyyy:
@@ -76,7 +76,7 @@ enter date dd-MM-yyyy:
 Enter the number of the task
 ```
 * For each entered number the user choses the task that they want to edit 
-* the App will ask the user which part they want to edit with the follwing menu:
+* The App will ask the user which part they want to edit with the follwing menu:
 ```
  >> Update (1) Title:
  >> Update (2) Project:
