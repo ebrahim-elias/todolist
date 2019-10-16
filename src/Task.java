@@ -7,13 +7,7 @@
  * @version 19.10.02.1
  */
 
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Scanner;
 
 public class Task {
 
@@ -107,7 +101,6 @@ public class Task {
     public String getFileDetails() {
         return title + "," + toProject + "," + dueDate + "," + done;
     }
-
 }
 
 

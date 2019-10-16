@@ -105,12 +105,18 @@ public class TodoList {
      * @return the task from the list
      */
     public Task selectTask(String taskNumber) {
-        for (Task task : list) {
-            if (list.indexOf(task) == Integer.parseInt(taskNumber) - 1) {
-                return task;
+        Task chosenTask = null;
+        try {
+            for (Task task : list) {
+                 int numOfTask = Integer.parseInt(taskNumber);
+                if (list.indexOf(task) == (numOfTask-1)) {
+                    chosenTask = task;
+                }
             }
+        }catch (Exception e){
+            System.out.println("Invalid value ");
         }
-        return null;
+            return chosenTask;
     }
 
     /**
