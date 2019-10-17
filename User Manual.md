@@ -5,9 +5,9 @@ When the app is started, the following welcome message will show up:
 Welcome to ToDoLy:
    >> You have 3 tasks todo and 1 tasks are done!
    >> Pick an option:
-   >> (1) Show Task List (by date or project)
-   >> (2) Add New Task
-   >> (3) Edit Task (update, remove)
+   >> (1) Show TodoList.TodoList.Task List (by date or project)
+   >> (2) Add New TodoList.TodoList.Task
+   >> (3) Edit TodoList.TodoList.Task (update, remove)
    >> (4) Save and Quit
    >>
 ```
@@ -49,7 +49,7 @@ Title: buy milk, Project: kitchen, Due Date: 2019-11-11, Status: Waiting
 Title: go to my child school, Project: meeting, Due Date: 2019-11-11, Status: Waiting
 Title: go to the Doctor, Project: appointment, Due Date: 2019-12-12, Status: Done
 ```
-## Add new Task
+## Add new TodoList.TodoList.Task
 #### In case option 2 is selected a new sequence of options will appear:
 ```
 Enter ToDo List Title:
@@ -59,14 +59,14 @@ Enter ToDo List Title:
 Enter project related:
 enter date dd-MM-yyyy:
 ```
-## Edit the Task
+## Edit the TodoList.TodoList.Task
 #### In case option 3 is selected the follwing menu will be shown:
 ```
  >> (1) Update task
  >> (2) Remove task
  >>
 ```
-### Update the Task
+### Update the TodoList.TodoList.Task
 #### If 1 is selected the tasks will be shown with their unique numbers:
 ```
 1 Title: buy milk, Project: kitchen, Due Date: 2019-11-11, Status: Waiting
@@ -84,7 +84,7 @@ Enter the number of the task
  >> (4) mark is done
  >> 
 ```
-### Removing the Task
+### Removing the TodoList.TodoList.Task
  * If  2  is selected the list of tasks will be shown again 
  * To remove the task the user needs enter the number of the task they want to remove
 

@@ -1,6 +1,6 @@
-/**
- * The class TodoList is the class where all the tasks can listed in a ArrayList
- * of type Task, with tow ways to add and tow ways of sort them for showing the list.
+package TodoList; /**
+ * The class TodoList.TodoList is the class where all the tasks can listed in a ArrayList
+ * of type TodoList.TodoList.Task, with tow ways to add and tow ways of sort them for showing the list.
  * the removing and the bringing specific task is written here as well.
  *
  * @author Ebrahim Elias
@@ -26,7 +26,7 @@ public class TodoList {
     /**
      * add task to the list
      *
-     * @param task with the type Task
+     * @param task with the type TodoList.TodoList.Task
      */
     public void add(Task task) {
         list.add(task);
@@ -66,7 +66,7 @@ public class TodoList {
     /**
      * filter the list by a specific project and show it
      *
-     * @param item
+     * @param item title name from user
      */
     public void filterListByTitleOrProject(String item) {
         for (Task task : list) {
@@ -108,15 +108,15 @@ public class TodoList {
         Task chosenTask = null;
         try {
             for (Task task : list) {
-                 int numOfTask = Integer.parseInt(taskNumber);
-                if (list.indexOf(task) == (numOfTask-1)) {
+                int numOfTask = Integer.parseInt(taskNumber);
+                if (list.indexOf(task) == (numOfTask - 1)) {
                     chosenTask = task;
                 }
             }
-        }catch (Exception e){
-            System.out.println("Invalid value ");
+        } catch (Exception e) {
+            System.out.println("it must be a number");
         }
-            return chosenTask;
+        return chosenTask;
     }
 
     /**

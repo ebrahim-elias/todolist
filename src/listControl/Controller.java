@@ -1,4 +1,4 @@
-/**
+package listControl; /**
  * Your task is to build a Todo list Application.
  * The application allows a user to create new tasks,
  * assign them a title and due date, and choose a project for that task to belong to.
@@ -11,12 +11,14 @@
  * @version 19.10.02.1
  */
 
+import TodoList.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 
-public class Controller {
+public class Controller  {
     private TodoList listClass;
     private Scanner scanner;
     private SaveRetrieve file;
@@ -26,7 +28,7 @@ public class Controller {
      * initializing empty list object and scanner object that take value from command line and file object
      */
 
-    public Controller() {
+    private Controller() {
         listClass = new TodoList();
         scanner = new Scanner(System.in);
         file = new SaveRetrieve();
@@ -58,9 +60,9 @@ public class Controller {
                 ">> Welcome to ToDoLy\n" +
                 ">> You have " + listClass.countUndoneTask() + " tasks todo and " + listClass.countDoneTask() + " tasks are done!\n" +
                 ">> Pick an option:\n" +
-                ">> (1) Show Task List (by date or project)\n" +
-                ">> (2) Add New Task\n" +
-                ">> (3) Edit Task (update, remove)\n" +
+                ">> (1) Show TodoList List (by date or project)\n" +
+                ">> (2) Add New TodoList.TodoList.Task\n" +
+                ">> (3) Edit TodoList (update, remove)\n" +
                 ">> (4) Save and Quit\n" +
                 ">> ");
     }
@@ -88,13 +90,14 @@ public class Controller {
                 case "2":
                     // input the title, project, date, from the user interface
                     System.out.println("Enter ToDo List Title: ");
-                    String  newTitle = attempt(scanner);
+                    String newTitle = attempt(scanner);
                     System.out.println("Enter project related: ");
-                    String  newProject = attempt(scanner);
-                    System.out.println("enter date dd-MM-yyyy:");
+                    String newProject = attempt(scanner);
+                    System.out.println("enter date yyyy-MM-dd:");
                     // entering the date again until its in the same format or value
-                    do { newDate = Utilities.readDate(scanner.nextLine());
-                    }while (newDate == null);
+                    do {
+                        newDate = Utilities.readDate(scanner.nextLine());
+                    } while (newDate == null);
                     // Creating new task in the list after validate and convert the input from the command line
                     listClass.add(newTitle, newProject, newDate);
                     listClass.printToDoList();
@@ -126,7 +129,7 @@ public class Controller {
 
     /**
      * the switch be called if the first option have been chosen (show the list).
-     * it calls the tow sorting methods from the TodoList class.
+     * it calls the tow sorting methods from the TodoList.TodoList class.
      *
      * @param value take the value on the user input for chose the right option
      */
@@ -146,7 +149,7 @@ public class Controller {
     }
 
     /**
-     * the switch be called if the third option have been chosen (Edit the Task).
+     * the switch be called if the third option have been chosen (Edit the TodoList.TodoList.Task).
      *
      * @param value take the value on the user input for chose the right option
      */
@@ -171,21 +174,24 @@ public class Controller {
      * @param sc scanner object for tacking the task number from the user
      * @return chosen task from the list
      */
-    private Task readChosenTask(Scanner sc) {
+    private Task readChosenTask(Scanner sc) throws IOException {
         Task chosenTask;
+        int i =1;
         do {
             System.out.println("Enter the number of the task");
             chosenTask = listClass.selectTask(sc.nextLine());
             // validate if the number exist
             if (chosenTask != null) {
                 return chosenTask;
+            } else {
+                System.out.println("Invalid number or value");
+                i++;
             }
-            else {
-                System.out.println("the number dose not exist..!!");
-            }
-        } while (chosenTask == null); // return to enter task number if the number dose not exist
+        } while (i <= 3); // return to enter task number if the number dose not exist and after 3 attempts
+        optionMain();
         return null;
     }
+
 
     /**
      * read the existing chosen task and send it to update method
@@ -202,7 +208,7 @@ public class Controller {
      *
      * @param sc for calling the readChosenTask witch teak scanner object as parameter
      */
-    private void readTaskToRemove(Scanner sc) {
+    private void readTaskToRemove(Scanner sc) throws IOException {
         Task chosenTask = readChosenTask(sc);
         listClass.removeTask(chosenTask);
     }
@@ -233,8 +239,9 @@ public class Controller {
                 break;
             case "3":
                 System.out.println("enter date dd-MM-yyyy:");
-                do { newDate = Utilities.readDate(scanner.nextLine());
-                }while (newDate == null);
+                do {
+                    newDate = Utilities.readDate(scanner.nextLine());
+                } while (newDate == null);
                 task.setDueDate(newDate);
                 break;
             case "4":
@@ -244,13 +251,24 @@ public class Controller {
                 System.out.println("Invalid input");
         }
     }
+
+    /**
+     * making only 3 attempts to input a new title and project with both new abd update task
+     *
+     * @param sc the user input
+     * @return the input if it is less than 3 attempts
+     * @throws IOException because of the calling of the method optionMain
+     */
     private String attempt(Scanner sc) throws IOException {
         int attemptNam = 0;
         String input;
-        do{ input = Utilities.readInput(sc.nextLine());
+        do {
+            input = Utilities.readInput(sc.nextLine());
             attemptNam++;
-        if (attemptNam > 2){ optionMain(); }
-    }while (input.equals(""));
+            if (attemptNam > 2) {
+                optionMain();
+            }
+        } while (input.equals(""));
         return input;
     }
 

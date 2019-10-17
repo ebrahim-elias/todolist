@@ -1,5 +1,5 @@
-/**
- * The Task Class is represent the new task how it interact with the system and
+package TodoList; /**
+ * The TodoList.TodoList.Task Class is represent the new task how it interact with the system and
  * what it must include (title,project,date,status).
  * the getter and setter for each field.
  *
@@ -18,9 +18,10 @@ public class Task {
 
     /**
      * constructor used when the new task is created from the user side without status witch assumed to be waiting
-     * @param title title and discretion of the task
+     *
+     * @param title     title and discretion of the task
      * @param toProject to witch project is it related
-     * @param dueDate what is the time that should be done
+     * @param dueDate   what is the time that should be done
      */
 
     public Task(String title, String toProject, LocalDate dueDate) {
@@ -32,10 +33,11 @@ public class Task {
 
     /**
      * constructor used when the task is retrieved from the text file
-     * @param title title and discretion of the task
+     *
+     * @param title     title and discretion of the task
      * @param toProject to witch project is it related
-     * @param dueDate what is the time that should be done
-     * @param status is it done or waiting
+     * @param dueDate   what is the time that should be done
+     * @param status    is it done or waiting
      */
     public Task(String title, String toProject, LocalDate dueDate, boolean status) {
         this.title = title;
@@ -54,6 +56,7 @@ public class Task {
 
     /**
      * set the boolean values from true to (Done) and from false to (Waiting)
+     *
      * @return string converted value
      */
     public String getIsDone() {
