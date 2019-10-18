@@ -38,10 +38,9 @@ public class Controller  {
      * The Main method
      *
      * @param args the arguments
-     * @throws IOException throw I/OException for it handel a file save and retrieve.
      */
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Controller c = new Controller();
         SaveRetrieve sr = new SaveRetrieve();
         c.listClass = sr.retrieveFromFile();
@@ -69,11 +68,9 @@ public class Controller  {
 
     /**
      * make the first choice that kan be taken from the option and handel it separately because of the switch in it.
-     *
-     * @throws IOException it throws exception because the save to file is written here before exiting the app.
      */
 
-    private void optionMain() throws IOException {
+    private void optionMain() {
         boolean finished = false;                            // local variable for exit the app
         while (!finished) {
             welcomeMessage();
@@ -153,14 +150,15 @@ public class Controller  {
      *
      * @param value take the value on the user input for chose the right option
      */
-    private void editSelection(String value) throws IOException {
+    private void editSelection(String value) {
         listClass.printToDoList();
         switch (value) {
             case "1":
-                readTaskToEdit(scanner);
+                updateChosenTask();
                 break;
             case "2":
-                readTaskToRemove(scanner);
+                Task chosenTask = readChosenTask(scanner);
+                listClass.removeTask(chosenTask);
                 break;
             default:
                 System.out.println("Invalid input");
@@ -174,7 +172,7 @@ public class Controller  {
      * @param sc scanner object for tacking the task number from the user
      * @return chosen task from the list
      */
-    private Task readChosenTask(Scanner sc) throws IOException {
+    private Task readChosenTask(Scanner sc) {
         Task chosenTask;
         int i =1;
         do {
@@ -192,34 +190,13 @@ public class Controller  {
         return null;
     }
 
-
-    /**
-     * read the existing chosen task and send it to update method
-     *
-     * @param sc for calling the readChosenTask witch teak scanner object as parameter
-     */
-    private void readTaskToEdit(Scanner sc) throws IOException {
-        Task chosenTask = readChosenTask(sc);
-        updateChosenTask(chosenTask);
-    }
-
-    /**
-     * read the existing chosen task and send it to remove method inside ToDoList class
-     *
-     * @param sc for calling the readChosenTask witch teak scanner object as parameter
-     */
-    private void readTaskToRemove(Scanner sc) throws IOException {
-        Task chosenTask = readChosenTask(sc);
-        listClass.removeTask(chosenTask);
-    }
-
     /**
      * list a new option if the task is updating and chose the part desired to update
-     *
-     * @param task the chosen task to be updated
      */
 
-    private void updateChosenTask(Task task) throws IOException {
+    private void updateChosenTask() {
+        Task task = readChosenTask(scanner);
+        assert task != null;
         System.out.println(">> Update (1) Title:\n" +
                 ">> Update (2) Project:\n" +
                 ">> Update (3) Date:\n" +
@@ -257,9 +234,8 @@ public class Controller  {
      *
      * @param sc the user input
      * @return the input if it is less than 3 attempts
-     * @throws IOException because of the calling of the method optionMain
      */
-    private String attempt(Scanner sc) throws IOException {
+    private String attempt(Scanner sc) {
         int attemptNam = 0;
         String input;
         do {

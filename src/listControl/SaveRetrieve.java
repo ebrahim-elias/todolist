@@ -23,9 +23,8 @@ public class SaveRetrieve {
     /**
      * The method is to save the actual list to text file
      * @param list from type list of task
-     * @throws IOException this can throw an exception so the method must handel it properly
      */
-    void saveToFile(List<Task> list) throws IOException {
+    void saveToFile(List<Task> list)  {
         try {
             // Create a file object.
             File file = new File(FNAME);
@@ -40,11 +39,9 @@ public class SaveRetrieve {
                     writer.write(message + " \n");
                 }
             }
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            // free the resources.
-            writer.close();
         }
     }
 

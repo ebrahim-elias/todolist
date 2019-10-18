@@ -114,7 +114,7 @@ public class TodoList {
                 }
             }
         } catch (Exception e) {
-            System.out.println("it must be a number");
+            return null;
         }
         return chosenTask;
     }
