@@ -1,10 +1,13 @@
-/**
+package listControl; /**
  * these class is for saving and retrieving the task list to and from a text file
  * in the OS.
  *
- *  @author Ebrahim Elias
- *  @version 19.10.02.1
-  */ 
+ * @author Ebrahim Elias
+ * @version 19.10.02.1
+ */
+
+import TodoList.*;
+
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,30 +23,25 @@ public class SaveRetrieve {
     /**
      * The method is to save the actual list to text file
      * @param list from type list of task
-     * @throws IOException this can throw an exception so the method must handel it properly
      */
-    public void saveToFile(List<Task> list) throws IOException {
-       try
-    {
-           // Create a file object.
-           File file = new File(FNAME);
-           // Create a file writer object with the file.
-           FileWriter fileWriter = new FileWriter(file);
-           // Create a file object with the file writer.
+    void saveToFile(List<Task> list)  {
+        try {
+            // Create a file object.
+            File file = new File(FNAME);
+            // Create a file writer object with the file.
+            FileWriter fileWriter = new FileWriter(file);
+            // Create a file object with the file writer.
             writer = new BufferedWriter(fileWriter);
             // Prepare list items to be stored in the file.
             if (list != null) {
                 for (Task task : list) {
                     String message = task.getFileDetails();
-                    writer.write(message+" \n");
+                    writer.write(message + " \n");
                 }
             }
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally {
-            // free the resources.
-            writer.close();
         }
     }
 
@@ -52,14 +50,14 @@ public class SaveRetrieve {
      * @return list from type ToDoList
      */
 
-   public TodoList retrieveFromFile() {
+    TodoList retrieveFromFile() {
         list = new TodoList();
         try (FileReader reader = new FileReader(FNAME);
              BufferedReader br = new BufferedReader(reader)) {
             // read line by line
             String line;
             while ((line = br.readLine()) != null) {
-                String [] str = line.split(",");
+                String[] str = line.split(",");
                 List<String> al = Arrays.asList(str);
                 // tacking out the values from the list by index
                 String title = al.get(0);
@@ -71,7 +69,7 @@ public class SaveRetrieve {
                 // convert the status from string to boolean
                 boolean statusAsBoolean = statusConvert(status);
                 // make new task with the constructor and add it to the list from type ToDoList
-                task = new Task(title,project,localDate,statusAsBoolean);
+                task = new Task(title, project, localDate, statusAsBoolean);
                 list.add(task);
             }
             return list;
@@ -79,7 +77,7 @@ public class SaveRetrieve {
             System.err.format("IOException: %s%n", e);
         }
         return null;
-   }
+    }
 
     /**
      * converting the string to boolean to be matched with the task constructor
@@ -87,10 +85,12 @@ public class SaveRetrieve {
      * @return status as boolean
      */
 
-    private boolean statusConvert(String status){
-        if (status.contains("false")){
+    private boolean statusConvert(String status) {
+        if (status.contains("false")) {
             return false;
-        } else { return true;}
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -98,10 +98,10 @@ public class SaveRetrieve {
      * @param localDate1 as string
      * @return localdate as type LocalDate
      */
-    private LocalDate dateConvert(String localDate1){
+    private LocalDate dateConvert(String localDate1) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(localDate1, formatter);
-        return  localDate;
+        return localDate;
     }
-    }
+}
 
