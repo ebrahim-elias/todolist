@@ -60,7 +60,7 @@ public class Controller  {
                 ">> You have " + listClass.countUndoneTask() + " tasks todo and " + listClass.countDoneTask() + " tasks are done!\n" +
                 ">> Pick an option:\n" +
                 ">> (1) Show TodoList List (by date or project)\n" +
-                ">> (2) Add New TodoList.TodoList.Task\n" +
+                ">> (2) Add New Task\n" +
                 ">> (3) Edit TodoList (update, remove)\n" +
                 ">> (4) Save and Quit\n" +
                 ">> ");

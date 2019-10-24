@@ -100,8 +100,7 @@ public class SaveRetrieve {
      */
     private LocalDate dateConvert(String localDate1) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(localDate1, formatter);
-        return localDate;
+        return LocalDate.parse(localDate1, formatter);
     }
 }
 
