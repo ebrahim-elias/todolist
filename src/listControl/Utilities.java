@@ -1,15 +1,15 @@
 package listControl;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-
+/**
+ * Utilities class is for checking the input as String and pars the date from string to localDate
+ */
 public abstract class Utilities {
 
     /**
      * convert the string date to type localDate with the format yyyy-mm-dd
-     *
      * @param date the input from user
      * @return the input as localDate
      */
@@ -23,7 +23,7 @@ public abstract class Utilities {
             if (localDate.compareTo(today) >= 0) {
                 return localDate;
             } else {
-                System.out.println("The date is old pleas try again: ");
+                System.out.println("The date is old please try again: ");
             }
         } catch (DateTimeParseException e) {
             System.out.println("Invalid Value (yyyy-MM-dd) Please Try again: ");
@@ -31,10 +31,8 @@ public abstract class Utilities {
         }
         return null;
     }
-
     /**
      * validate the input if it is empty or not
-     *
      * @param input the user input
      * @return the user input
      */

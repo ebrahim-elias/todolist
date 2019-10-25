@@ -1,6 +1,8 @@
 import listControl.Utilities;
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UtilitiesTest {
@@ -10,10 +12,10 @@ class UtilitiesTest {
         String date2 = "string";     // invalid value
         String date3 = "2018-10-18"; // old value
         String date4 = "2019-1-12"; // not correct format
-        assertEquals("2019-12-12", Utilities.readDate(date1).toString());
-        assertThrows(NullPointerException.class, () -> Utilities.readDate(date2).toString());
-        assertThrows(NullPointerException.class, () -> Utilities.readDate(date3).toString());
-        assertThrows(NullPointerException.class, () -> Utilities.readDate(date4).toString());
+        assertEquals("2019-12-12", Objects.requireNonNull(Utilities.readDate(date1)).toString());
+        assertThrows(NullPointerException.class, () -> Objects.requireNonNull(Utilities.readDate(date2)));
+        assertThrows(NullPointerException.class, () -> Objects.requireNonNull(Utilities.readDate(date3)));
+        assertThrows(NullPointerException.class, () -> Objects.requireNonNull(Utilities.readDate(date4)));
     }
 
     @Test

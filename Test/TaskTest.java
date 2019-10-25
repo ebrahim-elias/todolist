@@ -1,4 +1,3 @@
-
 import TodoList.*;
 import listControl.Utilities;
 import org.junit.jupiter.api.Test;
@@ -6,10 +5,10 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class TaskTest {
-    LocalDate date = Utilities.readDate("2019-12-12");
-    String title = "ebrahim";
-    String project = "king";
+class TaskTest {
+    private LocalDate date = Utilities.readDate("2019-12-12");
+    private String title = "ebrahim";
+    private String project = "king";
 
 
     @Test
